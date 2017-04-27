@@ -1,0 +1,52 @@
+<div class="infobox ltgray office">
+  <div class="searchby">
+    <span class="title">Search By:</span>
+  </div>
+  <div class="state">
+    <!-- component for choosing states or zip-->
+    <!-- Pop up Box State http://www.lung.org/assets/reus/pop-up-box-state.html -->
+    <div id="item-806815590" class="templateComponent" style="display: inline;"></div>
+  </div>
+  <div class="zipcode">
+    <label for="zip">Zip Code:</label>
+    <input type="text" id="zip" class="zip" />
+  </div>
+  <div class="radius">
+    <label for="radius">Radius:</label>
+    <select class="normal" id="radius">
+      <option value="5">5 Miles</option>
+      <option value="10">10 Miles</option>
+      <option value="20" selected="true">20 Miles</option>
+      <option value="30">30 Miles</option>
+      <option value="50">50 Miles</option>
+      <option value="100">100 Miles</option>
+      <option value="250">250 Miles</option>
+    </select>
+  </div>
+  <br /><button type="button" id="zip-search-bttn" class="smallButton blue">Search</button>
+</div>
+<div class="infobox map-box">
+  <div class="map-container">
+    <div id="map-canvas" style="width: 801px;height: 361px"></div>
+  </div>
+</div>
+<div id="map-results" class="infobox">
+  <!-- Dynamic js results -->
+</div>
+
+<t:if test="length>0">
+  <div style="display:none;">
+    <!-- Loop that gets the rest of the offices: -->
+    <t:list><span class="mapMarker">${itemid}|||<t:value id=office_location.latitude>Latitude here</t:value>|||<t:value id=office_location.longitude>Longitude here</t:value>|||${title}|||${address1}|||${city}|||${zip}|||${state}|||${phone_number}|||${fax}|||<t:set id="newemail" value="replace(email_address,'@','(at)')" />${newemail}|||${url}|||<t:list id="related_state">,${name}</t:list>|||${address2}</span>
+    </t:list>
+  </div>
+</t:if>
+
+<t:if test="!isNull(param.filter-state)">
+  <span id="filter-state" style="display:none;">${param.filter-state}|||${param.filter-state-name}</span>
+</t:if>
+<t:if test="!isNull(param.filter-zip)">
+  <span id="filter-zip" style="display:none;">${param.filter-zip}|||${param.filter-radius}</span>
+</t:if>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhciyve4W2uJdOkjI70J2Byty1DixDbsQ"></script>
+<script src="http://www.lung.org/js/dev/find-office.js"></script>

@@ -1,0 +1,185 @@
+<script src="http://www.lung.org/js/dev/jquery-selectbox.js"></script>
+
+<!-- <script src="//cdn.rawgit.com/noelboss/featherlight/1.5.0/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script> -->
+
+<script>
+$(function(){
+	$('select.normal').selectbox();
+	$('select.specialty').selectbox({
+		classHolder: 'specialty',
+		classOptions: 'options'
+	});
+
+	$('.selectastate').bind('click', function(){
+		if($('.selectstates').is(':hidden')){
+			$('.selectastate').text('Select State(s)');
+		}else{
+			$('.selectastate').text('Select State(s)')
+		}
+		$('.selectstates').toggle('fast');
+		return false;
+	});
+
+	$('.close-states').bind('click', function(){
+		if($('.selectstates').is(':hidden')){
+			$('.selectastate').text('Select State(s)');
+		}else{
+			$('.selectastate').text('Select State(s)')
+		}
+		$('.selectstates').toggle('fast');
+		return false;
+	});
+
+	var selectedStates = '',
+		stateslength = 0;
+	$('.selectstates input[type=checkbox]').click(function(){
+		if($(this).is(':checked')){
+			if(stateslength === 0){
+				selectedStates = ($(this).val());
+			}else{
+				selectedStates += (", "+$(this).val());
+			}
+			stateslength = selectedStates.length;
+		}else{
+			if(selectedStates.indexOf(", "+$(this).val()) != -1){
+				selectedStates = selectedStates.replace(', '+$(this).val(), '');
+			}else if(selectedStates.indexOf($(this).val()+', ') != -1){
+				selectedStates = selectedStates.replace($(this).val()+', ', '');
+			}else{
+				selectedStates = selectedStates.replace($(this).val(), '');
+			}
+			stateslength = selectedStates.length;
+			if(stateslength === 0){
+				selectedStates = "None selected";
+			}
+			//$('.selected').html('(<strong>Selected: </strong>'+selectedStates+')')
+		}
+		if(stateslength > 0){
+			$('#zip').val('').attr('disabled','true').css('background-color','#f0f0f0');
+			$('.radius .sbHolder').css('background-color','#f0f0f0');
+		}
+		else {
+			$('#zip').removeAttr('disabled').css('background-color','#fff');
+			$('.radius .sbHolder').css('background-color','#fff');
+		}
+		$('.states-checked').html(selectedStates);
+	});
+
+	// Back button click, list selected states
+	$('.selectstates input[type=checkbox]').each(function(){
+		if($(this).is(':checked')){
+			if(stateslength === 0)
+				selectedStates = ($(this).val());
+			else
+				selectedStates += (", "+$(this).val());
+			stateslength = selectedStates.length;
+		}
+	});
+	if(stateslength > 0){
+		$('.states-checked').html(selectedStates);
+		$('.radius .sbHolder').css('background-color','#f0f0f0');
+		$('#zip').val('').attr('disabled','true').css('background-color','#f0f0f0');
+	}
+
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+	if(isAndroid) {
+		$('.resources li label').css({'top' : -1})
+	}
+	if($('.open')){
+		$('.open').parent().find('.expand').slideToggle('fast');
+		//$('.closed').removeClass('closed').addClass('open');
+	}
+	/*
+	if($('.toggle')){
+		$('.expand').slideToggle('fast');
+		$('.toggle').removeClass('closed').addClass('open');
+	}
+	*/
+	$('.toggle').bind('click', function(){
+		divHeight = $(this).next().next().height();
+		var expandDiv = $(this).next().next();
+		var button = expandDiv.prev().prev();
+		expandDiv.slideToggle('fast', function(){
+			if($(this).is(":hidden")){
+				button.removeClass('closed').addClass('open');
+			}else{
+				button.removeClass('open').addClass('closed');
+			}
+		});
+		return false;
+	});
+
+	$('#reset').click(function(){
+		$('.checked').each(function(){
+			$(this).removeClass('checked');
+		})
+	});
+
+	$('.clear-states').click(function(){
+		$('.selectstates input[type=checkbox]').each(function(){
+			$(this).removeAttr('checked');
+		})
+	});
+
+});
+
+function sectionFindLocalOffice_GetInfo() {
+	var html = '';
+	var officeInfo = $.cookie('find-local-office');
+
+	if (officeInfo != null) {
+		officeInfo = officeInfo.split('|||');
+		if (officeInfo.length > 7) {
+			var email = ($.trim(officeInfo[11])).replace('(at)', '@');
+			html += officeInfo[4];
+
+			if (officeInfo[13] != '') {
+				html += '<br />' + officeInfo[13];
+			}
+
+			if (officeInfo[5] != '' || officeInfo[7] != '' || officeInfo[6] != '') {
+				var commaStr = (officeInfo[5] != '' && (officeInfo[7] != '' || officeInfo[6] != '')) ? ', ' : ' ';
+				html += '<br />' + officeInfo[5] + commaStr + officeInfo[7] + ' ' +  officeInfo[6];
+			}
+			if (officeInfo[8] != '') {
+				html += '<br />Phone: ' + officeInfo[8];
+			}
+			if (officeInfo[9] != '') {
+				html += '<br /><span style="padding-left:36px;">' + officeInfo[9] + '</span>';
+			}
+			if (officeInfo[10] != '') {
+				html += '<br />Fax: ' + officeInfo[10];
+			}
+			if (email != '') {
+				html += '<br />E-mail: <a href="mailto:' + email + '">' + email + '</a>';
+			}
+
+			html =
+				'<div class="gray-container">' +
+				'<div>' +
+						'<h4><a href="' + officeInfo[12] + '">' + officeInfo[3] + '</a></h4>' +
+						html +
+					'</div>' +
+					'<a href="http://www.lung.org/offices/">&gt; More Local Offices</a>' +
+				'</div>';
+		}
+	}
+	if (html != '') {
+		$('#find-local-office').replaceWith(html);
+	}
+}
+
+function sectionFindLocalOffice_SetInfo() {
+	var officeInfo = $('#find-local-office-info').text();
+	if (officeInfo != '') {
+		$.cookie('find-local-office', officeInfo, { path: '/', expires: 365 });
+	}
+}
+</script>
+
+<div id="item-807276504" class="templateComponent" style="display: inline;"></div>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis dignissim urna quis facilisis. Donec ac interdum diam. Maecenas est ligula, tristique eu massa sed, sollicitudin dignissim nisl. Ut bibendum, mauris eu imperdiet convallis, sapien lorem facilisis urna, quis malesuada purus orci at elit. Nullam auctor ligula id nisl dignissim vulputate. Aenean sollicitudin tristique&nbsp;dignissim.</p>
+
+<div id="templatelist-806815760" class="templateComponent" style="display: inline;"></div>

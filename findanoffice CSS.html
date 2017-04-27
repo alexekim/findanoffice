@@ -1,0 +1,139 @@
+<!-- <link rel="stylesheet" href="http://www.crohnscolitisfoundation.org/assets/css/new/levels/style.css"> -->
+
+<style>
+.hidden {display: none !important; visibility: hidden;}
+
+.ltgray {background-color: #ffffff; padding: 30px 0 20px; border-top: 5px solid #f1f2f3;}
+
+.selectstates {background: #ffffff; padding: 20px 0 20px 20px; position: absolute; z-index: 9999999999; display: none;}
+
+.selectstates a {font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1px; display: block; position: absolute; top: 10px; right: 10px;}
+
+.selectstates ul {line-height: 2; margin: 0; padding: 0; list-style: none;}
+
+.selectstates ul li:before {content: none; text-indent: 0; margin-right: 0;}
+
+.selectstates label {font-size: 12px !important; margin: 0; padding: 0; display: inline; float: none; position: relative; top: -2px; left: 5px}
+
+.selected {font-size: 12px; margin-bottom: 0px; padding-left: 60px; padding-right: 10px; display: block; position: relative; top: -10px;}
+
+.infobox {width: 99%; margin-bottom: 10px; display: table;}
+
+.infobox h3 {font-size: 13px; color: #5c5d5d; margin: 0; padding: 0; padding-left: 12px; margin-bottom: 10px;}
+
+.infobox p {font-size: 11px; color: #5c5d5d; margin: 0; padding: 0; padding-left: 12px; padding-right: 12px; margin-bottom: 10px; width: 820px;}
+
+.infobox p.contact-cell {width: 110px; float: left;}
+
+.infobox .pagination {margin-top: 0;}
+
+.searchby .title {font-size: 14px; font-weight: 900; color: #555559; padding-left: 15px;}
+
+.office {margin-top: 10px;}
+
+.office label {font-size: 16px; margin-top: 20px; display: block;  float: left; }
+
+.office input {width: 330px; height: 30px; margin: 12px 0 0 20px; border: solid 1px #a3a9ac;}
+
+/* State search box */
+
+.office .state {width: initial; padding-left: 15px; float: none; clear: both;}
+
+.office a.selectastate {font-size: 16px; font-weight: 700; color: #3a75c4; width: 190px; display: block; position: relative; top: -16px; left: 50px; clear: both;}
+
+.office .selectstates {width: inherit; border: 1px solid #a3a9ac;}
+
+.office .selectstates ul {/*width: 100%; -moz-column-count: 6; -moz-column-gap: 20px; -webkit-column-count: 6; -webkit-column-gap: 20px; column-count: 6; column-gap: 20px; float: none;*/}
+
+.office .selectstates ul li {text-indent: 0; width: 125px; margin-right: 20px; margin-bottom: 0; float: left;}
+
+.office .selectstates ul li:nth-child(6n+1) {margin-right: 0; clear: left;}
+
+.office .selectstates input {width: 12px; height: 12px; margin: 0; display: inline; border: medium none; float: none;}
+
+.office .selectstates label {display: inline; float: none;}
+
+/* Zip search box */
+
+.office .zipcode {margin-left: 15px; float: left;}
+
+.office .zip {width: 115px; margin-left: 10px; margin-right: 10px;}
+
+.office .radius {margin-left: 15px; display: block; float: left;}
+
+.office button {font-family: "Lato", sans-serif; font-size: 16px; font-weight: 700; color: #ffffff; text-align: center; text-decoration: none; line-height: 35px; background-color: #3a75c4; width: initial; height: 35px; margin: 10px 0 0 15px; padding: 0 20px; display: block; border: 0 none; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; cursor: pointer; float: left; clear: both;}
+
+.office button:hover {background-color: #bad80a;}
+
+.sbHolder {font-size: 13px; font-weight: 700; color: #555559; background-color: #ffffff; width: 115px; height: 32px; border:solid 1px #a3a9ac; position: relative; top: 12px; left: 10px; float: left;}
+
+.sbHolder a {color: #555559 !important;}
+
+.sbHolder a:hover{color: #555559 !important; text-decoration: none;}
+
+.sbSelector {text-indent: 10px; line-height: 32px; width: 115px; height: 32px; display: block; position: absolute; left:0; top:0; outline: none; overflow: hidden;}
+
+.sbSelector:link, .sbSelector:visited, .sbSelector:hover {text-decoration:none; color:#a3a9ac; outline: none;}
+
+.sbToggle {background: url('http://www.lung.org/images/dropdownarrow.png') right no-repeat; width: 17px; height: 16px; display: block; outline: none; position: absolute; right: 8px; top: 8px;}
+
+.sbOptions {font-size: 13px !important; background-color: #ffffff; width: 124px; height: 200px; margin: 0 !important; padding:0; padding-left: 8px; border: solid 1px #a3a9ac; list-style: none; position: absolute; left: -1px; top: 30px; overflow-y: scroll; overflow-x: hidden; z-index:1; z-index: 99999999;}
+
+.sbOptions li {text-indent: 0 !important; line-height: 1; margin-bottom: 5px !important; padding:0 7px;}
+
+.sbOptions li:before {content: none !important; margin-right: 0 !important;}
+
+.sbOptions a {font-weight: 400; padding: 5px 0;  display:block; border-bottom: solid 1px #dfe1e2; outline:none;}
+
+.sbOptions a:nth-child(7) {border-bottom: 0 none;}
+
+.sbOptions a:link,.sbOptions a:visited {color: #555559; text-decoration: none;}
+
+.sbOptions a:hover {color:#78be20;}
+
+.sbOptions li.last a {border-bottom:none;}
+
+.sbOptions .sbSub {padding-left: 17px;}
+
+/* Map box */
+
+.map-box {background: #e2eaf6; padding: 10px 0; border: 1px solid #e2eaf6;}
+
+.map-container {background: #ffffff; width: 801px; margin: 0 auto; padding: 5px;}
+
+/* Results box */
+
+#map-results {background: #ffffff; margin-top: 20px; padding: 10px 0;}
+
+.pagination {font-size: 14px; font-weight: 700; color: #555559; width: 95%; height: auto; margin: 0 auto 20px; overflow: hidden;}
+
+.pagination .resultsnum {margin-top: 0; float: left;}
+
+.pagination .pages {margin: 0; padding: 0; list-style: none; float: right;}
+
+.pages li {font-size: 14px; font-weight: 700; line-height: 1 !important; text-indent: 0 !important; margin-left: 5px; margin-bottom: 0 !important; display: table-cell !important; float: left;}
+
+.pages li:before {content: none !important; text-indent: 0 !important; margin-right: 0 !important;}
+
+.pages li:first-child {margin: 0;}
+
+.infobox .pagination a {font-weight: 400; color: #3a75c4;}
+
+ul.group-results {font-size: 16px; line-height: 21px; width: inherit; margin: 0; margin-bottom: 30px; list-style: none;}
+
+.group-results li {text-indent: 0 !important; width: inherit; margin-bottom: 0 !important; padding-top: 25px; padding-bottom: 25px; padding-left: 20px; display: table !important; table-layout: fixed;}
+
+.group-results li:before {content: none !important; text-indent: 0 !important; margin-right: 0 !important;}
+
+.group-results li:first-child {padding-top: 0;}
+
+.group-results li:nth-child(even) {background-color: #f1f2f3;}
+
+.group-results .info {text-align: right; word-wrap: break-word; width: 25%; padding-right: 20px; display: table-cell; border-right: solid 1px #dfe1e2;}
+
+.group-results .description {word-wrap: break-word; width: inherit;}
+
+.group-results .description p {font-size: 14px; line-height: 22px; padding-left: 20px;}
+
+.states-checked{}
+</style>
